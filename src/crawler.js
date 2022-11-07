@@ -1,6 +1,5 @@
 const scrapeLinks = require('./utils/scraper');
 
-// פרמטר ראשון זה הנתיב של
 module.exports = function crawlUrls(paths, depth, http) {
   
     // As an example, the following extracts links from given website URL or file path
@@ -10,4 +9,3 @@ module.exports = function crawlUrls(paths, depth, http) {
 }
 
 
-//     scrapeLinks('htmls/1.html', false).then(console.log);

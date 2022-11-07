@@ -24,14 +24,12 @@ async function scrapeLinks(pathUrl, depth, http) {
 
             const html = await (http ? fetchUrl(iterator) : fs.readFile(iterator));
 
-            // $ שבנתיב שהכנסנו ונכניס אותו למשתנה  html כאן אנו נטעין את הקובץ ה
               const $ = cheerio.load(html);
             
               let baseHref = $('base').attr('href');
               if (!baseHref) baseHref = iterator;
             
               $('a').map((i, a) => {
-                //שווה לשמות הילדים href
                 const href = a.attribs.href;
                 arrChildren.push(href);
               });
@@ -40,11 +38,8 @@ async function scrapeLinks(pathUrl, depth, http) {
             
               if (arrChildren.length<=depth) {
               return $('a').map((i, a) => {
-                //שווה לשמות הילדים href
                 const href = a.attribs.href;
-                //הנתיב הראשית האבא baseHref
-                // !!href במידה ויש ילדים
-                // כך אנו נחזיר את האבא והילדים
+
             
                 return !!href ? url.resolve(baseHref, href) : null;
               }).toArray()
@@ -61,14 +56,12 @@ async function scrapeLinks(pathUrl, depth, http) {
 
         const html = await (http ? fetchUrl(pathUrl) : fs.readFile(pathUrl));
 
-        // $ שבנתיב שהכנסנו ונכניס אותו למשתנה  html כאן אנו נטעין את הקובץ ה
           const $ = cheerio.load(html);
         
           let baseHref = $('base').attr('href');
           if (!baseHref) baseHref = pathUrl;
         
           $('a').map((i, a) => {
-            //שווה לשמות הילדים href
             const href = a.attribs.href;
             arrChildren.push(href);
           });
@@ -77,11 +70,8 @@ async function scrapeLinks(pathUrl, depth, http) {
         
           if (arrChildren.length<=depth) {
           return $('a').map((i, a) => {
-            //שווה לשמות הילדים href
             const href = a.attribs.href;
-            //הנתיב הראשית האבא baseHref
-            // !!href במידה ויש ילדים
-            // כך אנו נחזיר את האבא והילדים
+
         
             return !!href ? url.resolve(baseHref, href) : null;
           }).toArray()
